@@ -9,7 +9,7 @@ Day 1 :
 1.6 Delete an element in Arra
 1.7 Merging  Arra
 1.8 Find Duplicate Element
-1.9 
+1.9 Displa the location 
 
 
 
