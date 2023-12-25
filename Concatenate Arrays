@@ -1,0 +1,40 @@
+#include<stdio.h>
+int main()
+{
+	int i,a,b;
+	printf("\nArray Size : ");
+	scanf("%d",&a);
+	int a1[a];
+	printf("\nEnter the elements :\n");
+	for(i=0;i<a;i++)
+	{
+		scanf("%d",&a1[i]);
+	}
+	printf("\nArray Size :");
+	scanf("%d",&b);
+	int a2[b];
+	printf("\nEnter the elements :\n");
+	for(i=0;i<b;i++)
+	{
+		scanf("%d",&a2[i]);
+	}
+	int c=a+b;
+	int a3[c];
+	for(i=0;i<c;i++)
+	{
+		if(i<a)
+		{
+			a3[i]=a1[i];
+		}
+		else
+		{
+			a3[i]=a2[i-a];
+		}
+	}
+	printf("\n");
+    for(i=0;i<c;i++)
+	{
+		printf("%d ",a3[i]);
+	}
+	return 0;
+}
