@@ -8,7 +8,7 @@ Day 1 - Arrays
 1.6. Delete element in array  
 1.7. Merging arrays  
 1.8. Find duplicate element  
-1.9. Display the location of given element in array and print it
+1.9. Display the location of given element in array and print it  
 1.10. Ascending/Descending/Alphabet order  
 1.11. Check validation of String  
 1.12. Largest element in matrix  
