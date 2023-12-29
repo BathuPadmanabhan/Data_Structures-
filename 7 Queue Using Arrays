@@ -1,0 +1,103 @@
+#include <stdio.h>
+
+int front = -1, rear = -1, num, size = 10;
+int q[10];
+
+void enqueue(int num)
+{
+    if (rear == size - 1)
+    {
+        printf("Overflow");
+        return;
+    }
+    else if (front == -1 && rear == -1)
+    {
+        front = rear = 0;
+        q[rear] = num;
+    }
+    else
+    {
+        rear = rear + 1;
+        q[rear] = num;
+    }
+}
+
+void dequeue()
+{
+    if (front == -1 || rear == -1)
+    {
+        printf("Underflow");
+        return;
+    }
+    else
+    {
+        printf("%d", q[front]);
+        q[front] = -1;
+        if (front == rear)
+        {
+            front = rear = -1;
+        }
+        else
+        {
+            front = front + 1;
+        }
+    }
+}
+
+void peek() {
+    if (front == NULL && rear == NULL){
+        printf("Queue is Empty\n\n");
+    }
+    else{
+    printf("\nPeek of Front : %d", q[front]);
+    printf("\nPeek of Rear : %d\n\n", q[rear]);
+    }
+}
+
+void dis()
+{
+    int i;
+    if (front == -1)
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    else
+    {
+        for (i = front; i <= rear; i++)
+        {
+            printf("%d ", q[i]);
+        }
+        printf("\n");
+    }
+}
+
+int main()
+{
+    int c = 0, i;
+
+    while (c != 5)
+    {
+        printf("\n1 Enqueue\n2 Dequeue\n3 Display\n4 Peek\n5 End\n");
+        printf("Enter the Choice: ");
+        scanf("%d", &c);
+
+        switch (c)
+        {
+        case 1:
+            printf("\nEnter the element: ");
+            scanf("%d", &num);
+            enqueue(num);
+            break;
+        case 2:
+            dequeue();
+            break;
+        case 3:
+            dis();
+            break;
+        case 4:
+			      peek();
+			      break;
+        }
+    }
+}
