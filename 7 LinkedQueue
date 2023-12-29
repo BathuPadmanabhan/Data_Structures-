@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node* next;
+} *n, *front, *rear;
+
+void enqueue(int num) {
+    n = (struct node*)malloc(sizeof(struct node));
+
+    if (front == NULL && rear == NULL) {
+        n->data = num;
+        n->next = NULL;
+        front = rear = n;
+    } else {
+        rear->next = n;
+        rear = n;
+        n->data = num;
+        n->next = NULL;
+    }
+}
+
+void dequeue() {
+    if (front == NULL) {
+        printf("**Queue is Empty**\n\n");
+    } else {
+        printf("\n**Front Element Deleted - %d\n\n", front->data);
+        front = front->next;
+    }
+}
+
+
+void dis() {
+    struct node* t;
+    for (t = front; t != NULL; t = t->next) {
+        printf("%d ", t->data);
+    }
+    printf(" - Elements**\n");
+}
+
+void peek() {
+    if (front == NULL && rear == NULL){
+        printf("Queue is Empty\n\n");
+    }
+    else{
+    printf("\nPeek of Front : %d", front->data);
+    printf("\nPeek of Rear : %d\n\n", rear->data);
+    }
+}
+
+int main() {
+    int c = 0, num;
+
+    while (c != 5) {
+        printf("1 Enqueue\n2 Dequeue\n3 Display\n4 Peek\n5 End\n");
+        printf("Enter the Choice: ");
+        scanf("%d", &c);
+
+        switch (c) {
+            case 1:
+                printf("\nEnter the element: ");
+                scanf("%d", &num);
+                enqueue(num);
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                dis();
+                break;
+            case 4:
+                peek();
+                break;
+        }
+    }
+}
