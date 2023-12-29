@@ -1,0 +1,17 @@
+
+#include <stdio.h>
+#include <string.h>
+int main() {
+   
+    char s[20];
+    printf("Enter String: ");
+    scanf("%s",s);
+    int len=strlen(s);
+    if(str[0]=='('  &&  s[len-1]==')'){
+    	printf("\nThe string is valid");
+	}
+	else
+	   printf("\nThe string is not valid");
+  printf("\nPadmanabhan S\n192324076");
+  return 0;
+}
