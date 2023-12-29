@@ -1,0 +1,208 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct node {
+    int data;
+    struct node* next;
+    struct node* prev;
+} *head, *tail, *n;
+
+
+void in_be( int num) {
+    
+    n = (struct node*)malloc(sizeof(struct node));
+    n->data = num;
+    n->prev= NULL;
+    n->next=NULL;
+    
+    if (head == NULL) {
+        
+        tail = n ;
+        head = n;
+    }
+    else {
+        n -> next = head;
+        head->prev = n;
+        head = n;
+    }
+}
+void in_end(int num)
+{
+    n= (struct node*)malloc(sizeof(struct node));
+    n->data=num;
+    n->prev=NULL;
+    n->next=NULL;
+    if(head == NULL)
+    {
+        head = n;
+        tail = n;
+    }
+    else{
+        tail->next = n;
+        n->prev = tail;
+        tail = n;
+    }
+}
+
+void in_mid(int num,int mid)
+{
+    n = (struct node*)malloc(sizeof(struct node));
+    n->next=NULL;
+    n->prev=NULL;
+    struct node *t,*tp;
+    for(t=head;t!=NULL;t=t->next)
+    {
+        tp=t->next;
+        if(t->data==mid)
+        {
+            break;
+        }
+        n->next=tp;
+        tp->prev=n;
+        n->prev=t;
+        t->next=n;
+    }
+}
+
+void de_be()
+{
+    struct node *t;
+    t=head;
+    while(t->next!=NULL)
+    {
+        t=t->next;
+    }
+    head = t->next;
+
+    free(t);
+}
+
+void de_end()
+{
+    struct node *t;
+    t=head;
+    while(t!=NULL)
+    {
+      
+      t =t ->next;
+
+    }
+    tail = t->prev;
+    tail->next = NULL;
+    free(t);
+}
+
+void de_mid(int mid)
+{
+    struct node *t,*tp;
+    t=head;
+    tp=t->next;
+    while(t->data!=mid)
+    {
+    	tp=tp->next;
+        t=t->next;
+    }
+    tp->prev=t->next;
+    t->next=tp->prev;
+free(t);
+}
+
+void min_max()
+{
+   struct node* t;
+   int min = head -> data;
+   int max = head -> data;
+   for(t = head;t!=NULL;t = t->next)
+   {
+     if(t-> data > max)
+     {
+        max = t->data;
+     }
+     else if(t-> data < min)
+     {
+        min = t-> data;
+     }
+   }
+   printf("\nMinimum is %d\nMaximum is %d",min,max);
+}
+
+
+void display() {
+    struct node* temp = head;
+
+    
+    if (head == NULL) {
+        printf("The list is empty.\n");
+    }
+    else {
+        
+        do {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        } while (temp != head);
+    }
+}
+
+int main() {
+
+    in_be(5);
+    in_be(10);
+    in_be(15);
+
+   
+     printf("1.Insert at beginning.\n2.Insert at middle.\n3.Insert at end.\n4.Delete at beginning.\n5.Delete at middle.\n6.Delete at end.\n7.Display.\n8.Search\n9.Sort.\n10.Find minimum and maximum.\n0.Exit");
+    printf("\n\nEnter your choice: ");
+    int num, c, mid, value;
+    scanf("%d", &num);
+    printf("\n");
+    while (num != 0) {
+        switch (num) {
+        case 1:
+            
+            printf("Enter the number to insert :");
+            scanf("%d", &value);
+            printf("\n");
+            in_be(value);
+            break;
+        case 2:
+            
+            printf("Enter the value to insert in the middle: ");
+            scanf("%d", &value);
+            in_mid(value, mid);
+            break;
+        case 3:
+            
+            printf("Enter the value to insert at the end: ");
+            scanf("%d", &value);
+            in_end(value);
+            break;
+        case 4:
+           de_beg();
+            break;
+        case 5:
+            de_mid(mid);
+            break;
+        case 6:
+            de_end();
+            break;
+        case 7:
+            display();
+            break;
+        case 8:
+            printf("Enter the value to search: ");
+            scanf("%d", &value);
+            search(value, c);
+            break;
+        case 9:
+            sort();
+            printf("List sorted.\n\n");
+            break;
+        case 10:
+             min_max();
+            break;
+     }
+}
+
+    return 0;
+}
