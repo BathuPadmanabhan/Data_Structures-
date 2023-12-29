@@ -1,0 +1,98 @@
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 10
+
+char a[10];
+int top = -1;
+
+int isEmpty() {
+    return top == -1;
+}
+
+int isFull() {
+    return top == MAX - 1;
+}
+
+char peek() {
+    return a[top];
+}
+
+char pop() {
+    if (isEmpty())
+        return -1;
+
+    char ch = a[top];
+    top--;
+    return ch;
+}
+
+void push(char oper) {
+    if (isFull())
+        printf("Stack Full!!!!");
+    else {
+        top++;
+        a[top] = oper;
+    }
+}
+
+int isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
+}
+
+int precedence(char ch) {
+    switch (ch) {
+    case '+':
+    case '-':
+        return 1;
+
+    case '*':
+    case '/':
+        return 2;
+
+    case '^':
+        return 3;
+    }
+    return -1;
+}
+
+void covertInfixToPostfix(char* exp) {
+    int i, j;
+
+    for (i = 0, j = 0; exp[i]; ++i) {
+        if ((exp[i] >= 'a' && exp[i] <= 'z') || (exp[i] >= 'A' && exp[i] <= 'Z')) {
+            while ((exp[i] >= 'a' && exp[i] <= 'z') || (exp[i] >= 'A' && exp[i] <= 'Z')) {
+                printf("%c", exp[i]);
+                i++;
+            }
+            printf(" ");
+            i--;
+        } else if (exp[i] == '(')
+            push(exp[i]);
+        else if (exp[i] == ')') {
+            while (!isEmpty() && peek() != '(') {
+                printf("%c", pop());
+            }
+            if (!isEmpty() && peek() != '(')
+                return;
+            else
+                pop();
+        } else if (isOperator(exp[i])) {
+            while (!isEmpty() && precedence(exp[i]) <= precedence(peek())) {
+                printf("%c", pop());
+            }
+            push(exp[i]);
+        }
+    }
+
+    while (!isEmpty())
+        printf("%c", pop());
+
+    printf("\n");
+}
+
+int main() {
+    char exp[] = "(a + b) * c + d";
+    covertInfixToPostfix(exp);
+    return 0;
+}
