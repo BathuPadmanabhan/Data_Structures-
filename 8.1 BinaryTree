@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+	int data;
+	struct node* left;
+	struct node* right;
+}*n;
+
+struct node* createNode(int val)
+{
+	n=(struct node*)malloc(sizeof(struct node));
+	n->data=val;
+	n->left=NULL;
+	n->right=NULL;
+	
+	return n;
+}
+
+struct node* in_left(struct node* root,int val)
+{
+	root->left=createNode(val);
+	return root->left;
+	
+}
+
+struct node* in_right(struct node* root,int val)
+{
+	root->right=createNode(val);
+	return root->right;
+}
+
+void inorder(struct node* root)
+{
+	
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+    //printf("\n");
+}
+
+void postorder(struct node* root)
+{
+   // printf("Post Order : ");
+	if(root != NULL)
+	{
+		inorder(root->left);
+		inorder(root->right);
+		printf("%d ",root->data);
+	}
+	//printf("\n");
+}
+
+void preorder(struct node* root)
+{
+    //printf("Pre Order : ");
+	if(root!=NULL)
+	{
+		printf("%d ",root->data);
+		inorder(root->left);
+		inorder(root->right);
+	}
+}
+void dis(struct node* root)
+{
+	printf("Binary Tree Elements: %d %d %d %d\n",root->data,root->left->data,root->right->data,root->right->left->data);
+	printf("		 %d\n",root->data);
+	printf("	     %d       %d  \n",root->left->data,root->right->data);
+
+	printf("		%d\n",root->right->left->data);
+	
+	
+}
+int main()
+{
+	struct node* root = createNode(1);
+	in_left(root,2);
+	in_right(root,4);
+	in_left(root->right,5);
+	
+	dis(root);
+	printf("\nIn Order : ");
+	inorder(root);
+	printf("\n");
+	printf("Pre Order : ");
+	preorder(root);
+	printf("\n");
+	printf("Post Order : ");
+	postorder(root);
+	
+	
+}
