@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define SIZE 20
+
+int stack[SIZE];
+int top = -1;
+
+void push(int item) {
+    if (top >= SIZE - 1) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    top++;
+    stack[top] = item;
+}
+
+int pop() {
+    if (top < 0) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    int item = stack[top];
+    top--;
+    return item;
+}
+
+int evaluate(char* exp) {
+    int i, val1, val2;
+    for (i = 0; exp[i]; ++i) {
+        if (exp[i] == ' ') {
+            continue;
+        }
+        if (isdigit(exp[i])) {
+            push(exp[i] - '0');
+        } else {
+            val1 = pop();
+            val2 = pop();
+            switch (exp[i]) {
+                case '+':
+                    push(val2 + val1);
+                    break;
+                case '-':
+                    push(val2 - val1);
+                    break;
+                case '*':
+                    push(val2 * val1);
+                    break;
+                case '/':
+                    push(val2 / val1);
+                    break;
+            }
+        }
+    }
+    return pop();
+}
+
+int main() {
+    char exp[] = "44 2 / 6 -";
+    printf("Eexpression : %s \n",exp);
+    int result = evaluate(exp);
+    printf("Result = %d\n", result);
+    return 0;
+}
