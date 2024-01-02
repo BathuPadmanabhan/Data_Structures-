@@ -1,0 +1,240 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+} *head, *tail, *n;
+
+void ins_beg(int num) {
+    n = (struct node*)malloc(sizeof(struct node));
+    n->data = num;
+    n->next = NULL;
+
+    if (head == NULL) {
+        head = n;
+        tail = n;
+        tail->next = head;
+    } else {
+        n->next = head;
+        head = n;
+        tail->next = head;
+    }
+}
+
+void ins_mid(int num, int mid) {
+    struct node *t = head;
+    n = (struct node*)malloc(sizeof(struct node));
+    n->data = num;
+    n->next = NULL;
+
+    int i;
+    if (head == NULL) {
+        head = n;
+        tail = n;
+        tail->next = head;
+    } else {
+        for (i = 0; i < mid - 1; i++) {
+            t = t->next;
+        }
+        n->next = t->next;
+        t->next = n;
+    }
+}
+
+void ins_end(int num) {
+    n = (struct node*)malloc(sizeof(struct node));
+    n->data = num;
+    n->next = NULL;
+
+    if (head == NULL) {
+        head = n;
+        tail = n;
+        tail->next = head;
+    } else {
+        tail->next = n;
+        tail = n;
+        tail->next = head;
+    }
+}
+
+void del_beg() {
+    struct node *temp;
+    if (head == NULL) {
+        printf("List is empty\n");
+    } else {
+        temp = head;
+        head = head->next;
+        tail->next = head;
+        free(temp);
+    }
+}
+
+void del_mid(int mid) {
+    struct node *tp = head;
+    int i;
+
+    if (head == NULL) {
+        printf("Linked List is Empty\n");
+    }
+
+    for (i = 0; i < mid - 1; i++) {
+        tp = tp->next;
+    }
+
+    struct node *temp = tp->next;
+    tp->next = temp->next;
+    free(temp);
+}
+
+void del_end() {
+    struct node *temp = head, *prev = NULL;
+
+    if (head == NULL) {
+        printf("List is Empty\n");
+    }
+
+    while (temp->next != head) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (prev != NULL) {
+        prev->next = head;
+        tail = prev;
+    } else {
+        head = NULL;
+    }
+
+    free(temp);
+}
+
+void min_max() {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    int min, max;
+    struct node *n = head;
+    min = max = n->data;
+
+    do {
+        if (n->data < min) {
+            min = n->data;
+        }
+        if (n->data > max) {
+            max = n->data;
+        }
+        n = n->next;
+    } while (n != head);
+
+    printf("%d  minimum  \n%d  maximum.\n", min, max);
+}
+
+void search(int num) {
+    struct node *n;
+    int c = 0, l = 0;
+
+    if (head != NULL) {
+        do {
+            c++;
+            if (n->data == num) {
+                printf("%d is found in %d.\n\n", num, c);
+                l++;
+                break;
+            }
+            n = n->next;
+        } while (n != head);
+
+        if (l == 0) {
+            printf("%d is not found\n", num);
+        }
+    }
+}
+
+void display() {
+    struct node *current = head;
+
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    printf("Elements: ");
+    do {
+        printf("%d", current->data);
+        current = current->next;
+
+        if (current != head) {
+            printf(",");
+        }
+    } while (current != head);
+
+    printf("\n");
+}
+
+
+int main() {
+    
+    int num, c, mid, value;
+
+    while (num != 10) {
+    printf("1.Insert at beginning.\n2.Insert at middle.\n3.Insert at end.\n4.Delete at beginning.\n5.Delete at middle.\n6.Delete at end.\n7.Display.\n8.Search\n9.Find minimum and maximum.\n10.Exit");
+        printf("\n\nEnter your choice: ");
+        scanf("%d", &num);
+        printf("\n");
+        switch (num) {
+        case 1:
+            c++;
+            printf("Enter the number to insert :");
+            scanf("%d", &value);
+            printf("\n");
+            ins_beg(value);
+            break;
+        case 2:
+            c++;
+            printf("Enter the value to insert in the middle: ");
+            scanf("%d", &value);
+            ins_mid(value, mid);
+            break;
+        case 3:
+            c++;
+            printf("Enter the value to insert at the end: ");
+            scanf("%d", &value);
+            ins_end(value);
+            break;
+        case 4:
+            c--;
+            del_beg();
+            printf("Deleted from the beginning.\n\n");
+            break;
+        case 5:
+            c--;
+            del_mid(mid);
+            printf("Deleted from the middle.\n\n");
+            break;
+        case 6:
+            c--;
+            del_end();
+            printf("Deleted from the end.\n\n");
+            break;
+        case 7:
+            display();
+            break;
+        case 8:
+            printf("Enter the value to search: ");
+            scanf("%d", &value);
+            search(value);
+            break;
+        case 9:
+            min_max();
+            break;
+        
+        }
+        
+        
+    }
+   
+    return 0;
+}
