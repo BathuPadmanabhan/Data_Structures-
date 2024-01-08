@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<stdbool.h>
+
+void swap(int* x,int* y)
+{
+	int temp;
+	temp = *x;
+	*x = *y;
+	*y = temp;
+}
+
+void BubbleSort(int arr[],int n)
+{
+	int i,j;
+	bool swapped;
+	for(i=0;i<n-1;i++)
+	{
+	   swapped= false;
+	   for(j=0;j<n-i-1;j++)
+	   {
+	   		if(arr[j] > arr[j+1])
+	   		{
+	   			swap(&arr[j], &arr[j+1]);
+	   			swapped= true;
+			   }
+		   
+		}	
+		if(swapped ==false)
+		  break;
+	}
+}
+
+void dis(int arr[],int n)
+{
+	int a;
+	printf("\nSorted Array: ");
+	for(a=0;a<n;a++)
+	{
+		printf("%d ",arr[a]);
+	}
+}
+
+
+int main()
+{
+	int arr[] ={16,17,7,9,6};
+	int n = sizeof(arr)/sizeof(arr[0]);
+	
+	BubbleSort(arr,n); 
+	
+	dis(arr,n);
+}
