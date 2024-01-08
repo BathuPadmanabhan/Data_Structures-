@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	struct node* left;
+	struct node* right;
+	struct node* height;
+}*n;
+
+
+struct node* createNode(int val)
+{
+	n = (struct node*)malloc(sizeof(struct node));
+	n->data = val;
+	n->left = NULL;
+	n->right = NULL;
+	return n;
+}
+
+struct node* search(struct node* root,int val)
+{
+	if(root==NULL|| root->data==val)
+	    return root;
+	else if(val > root->data)
+	    return search(root->right,val);
+	else
+	    return search(root->left,val);
+}
+
+struct node* insert(struct node* root,int val)
+{
+	if(root==NULL)
+	{
+		return createNode(val);
+	}
+	else if(val > root->data)
+	{
+		root->right = insert (root->right,val);
+	}
+	else
+	   root->left = insert(root->left,val);
+	   
+	return root;
+}
+
+void inorder(struct node* root)
+{
+	
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+
+
+int main()
+{
+	struct node* root;
+	root=createNode(10);
+	insert(root,20);
+	insert(root,11);
+	insert(root,4);
+	insert(root,8);
+	
+	inorder(root);
+	
+	return 0;
+	
+}
