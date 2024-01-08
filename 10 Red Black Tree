@@ -1,0 +1,153 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* parent;
+    struct Node* left;
+    struct Node* right;
+    int color;
+};
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->parent = NULL;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    newNode->color = 1; // 1 for red, 0 for black
+    return newNode;
+}
+
+
+void leftRotate(struct Node** root, struct Node* x) {
+    struct Node* y = x->right;
+    x->right = y->left;
+    if (y->left != NULL)
+        y->left->parent = x;
+    y->parent = x->parent;
+    if (x->parent == NULL)
+        (*root) = y;
+    else if (x == x->parent->left)
+        x->parent->left = y;
+    else
+        x->parent->right = y;
+    y->left = x;
+    x->parent = y;
+}
+
+
+void rightRotate(struct Node** root, struct Node* y) {
+    struct Node* x = y->left;
+    y->left = x->right;
+    if (x->right != NULL)
+        x->right->parent = y;
+    x->parent = y->parent;
+    if (y->parent == NULL)
+        (*root) = x;
+    else if (y == y->parent->left)
+        y->parent->left = x;
+    else
+        y->parent->right = x;
+    x->right = y;
+    y->parent = x;
+}
+
+
+void fixInsert(struct Node** root, struct Node* newNode) {
+    struct Node* parent = NULL;
+    struct Node* grandparent = NULL;
+    while ((newNode != (*root)) && (newNode->color != 0) && (newNode->parent->color == 1)) {
+        parent = newNode->parent;
+        grandparent = newNode->parent->parent;
+        if (parent == grandparent->left) {
+            struct Node* uncle = grandparent->right;
+            if (uncle != NULL && uncle->color == 1) {
+                grandparent->color = 1;
+                parent->color = 0;
+                uncle->color = 0;
+                newNode = grandparent;
+            } else {
+                if (newNode == parent->right) {
+                    leftRotate(root, parent);
+                    newNode = parent;
+                    parent = newNode->parent;
+                }
+                rightRotate(root, grandparent);
+                int temp = parent->color;
+                parent->color = grandparent->color;
+                grandparent->color = temp;
+                newNode = parent;
+            }
+        } else {
+            struct Node* uncle = grandparent->left;
+            if ((uncle != NULL) && (uncle->color == 1)) {
+                grandparent->color = 1;
+                parent->color = 0;
+                uncle->color = 0;
+                newNode = grandparent;
+            } else {
+                if (newNode == parent->left) {
+                    rightRotate(root, parent);
+                    newNode = parent;
+                    parent = newNode->parent;
+                }
+                leftRotate(root, grandparent);
+                int temp = parent->color;
+                parent->color = grandparent->color;
+                grandparent->color = temp;
+                newNode = parent;
+            }
+        }
+    }
+    (*root)->color = 0;
+}
+
+
+void insert(struct Node** root, int data) {
+    struct Node* newNode = createNode(data);
+    struct Node* current = (*root);
+    struct Node* parent = NULL;
+    while (current != NULL) {
+        parent = current;
+        if (newNode->data < current->data)
+            current = current->left;
+        else
+            current = current->right;
+    }
+    newNode->parent = parent;
+    if (parent == NULL)
+        (*root) = newNode;
+    else if (newNode->data < parent->data)
+        parent->left = newNode;
+    else
+        parent->right = newNode;
+    fixInsert(root, newNode);
+}
+
+
+void inorder(struct Node* root) {
+    if (root == NULL)
+        return;
+    inorder(root->left);
+    printf("%d ", root->data);
+    inorder(root->right);
+}
+
+
+int main() {
+    struct Node* root = NULL;
+    insert(&root, 7);
+    insert(&root, 3);
+    insert(&root, 18);
+    insert(&root, 10);
+    insert(&root, 22);
+    insert(&root, 8);
+    insert(&root, 11);
+    insert(&root, 26);
+    printf("Inorder traversal of the Red-Black Tree: ");
+    inorder(root);
+    return 0;
+}
