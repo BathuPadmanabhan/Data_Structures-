@@ -111,3 +111,25 @@ Day 8
 1.Implement Binary tree   
 2. Implement Binary Search Tree and perform Insertion and Deletion    
 3. Create Binary Search Tree with Tree Traversal (Inorder, Preorder, Postorder and Level order)    
+
+
+Day 10   
+1. Implement a C Program for Red Black tree and perform Insertion and Deletion of Nodes   
+2. Implement a C Program for Splay tree tree and perform Insertion and Deletion of Nodes    
+
+Day 11   
+1. Implement a C Program for B Tree and perform Insertion of Nodes   
+2. Implement a C Program for TRIE Tree and perform Insertion  of Nodes      
+
+Day 12
+1. Implement a C Program to perform Hashing with all collision resolving techniques     
+2. Implement a C Program for Min Heap and Max Heap and perform Insertion  of Nodes
+3.  Implement a C Program to perform Heap sort both ascending and Descending order        
+
+
+Day 13     
+1. Implement a C Program to perform Merge Sort     
+2. Implement a C Program to perform Insertion Sort    
+3. Implement a C Program to perform Radix Sort     
+4. Implement a C Program to perform Bubble Sort     
+5. Implement a C Program to perform Shell Sort
