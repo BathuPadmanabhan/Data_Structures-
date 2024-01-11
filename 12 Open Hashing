@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+//int arr[20];
+int ts = 8;
+
+struct node{
+	int arr[20];
+	struct node *next,*i;
+};
+
+
+struct node* insert(int num)
+{
+	struct node *i;
+	struct node* n  = (struct node*)malloc(sizeof(struct node));
+	int h;
+	h = num % ts;
+	
+	for(n->i=n->arr[0];n->i < ts;n = n->next)
+	{
+		if(n->arr->i == NULL){
+		
+			if(h == n->i)
+			{
+			   arr->i->data = num;
+			}
+		}
+		else
+		  {
+		  	 
+		  	 n->i->next->arr = num;
+		  	 n->next = i;
+		  }
+	}
+}
+   
+
+int main()
+{
+	//int arr[] = {36,18,72,43,6,8};
+	//int ts = sizeof(arr)/sizeof(arr[0]);
+	
+	
+	insert(36);
+	insert(18);
+	insert(72);
+	insert(43);
+	insert(6);
+	insert(8);
+}
