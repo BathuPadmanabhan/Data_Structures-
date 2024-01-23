@@ -133,3 +133,17 @@ Day 13
 3. Implement a C Program to perform Radix Sort     
 4. Implement a C Program to perform Bubble Sort     
 5. Implement a C Program to perform Shell Sort
+
+
+Day 14     
+1. Implement a C Program to perform Quick Sort     
+2. Implement a C Program to perform Selection Sort
+
+Day 15    
+1. Implement a C Program to represent a Graph  using Matrix    
+2. Implement a C Program to represent a Graph using Linked List     
+3. Implement a C Program to perform Topological ordering
+
+Day 16    
+1. Implement a C Program to find MST for the given graph using Prim's Algorithm   
+2. Implement a C Program to find MST for the given graph using Kruskal's Algorithm     
